@@ -4,8 +4,9 @@
 let aliens = [];
 
 // Array for the laser
-var laserBeamY = [];
-var laserBeamX = [];
+// var laserBeamY = [];
+// var laserBeamX = [];
+let lasers = [];
 
 // Other variables
 var sphereDia = 25, speed = 1, score = 0;
@@ -20,10 +21,14 @@ var backdrop;
 var earth;
 var alieninvasion;
 
-class Alien {
+
+class Sphere {
   constructor(){
-    aliens.x = random (20, width - 20);
-    aliens.y = 0;
+
+    this.x = random(20, width - 20);
+    this.y = 0;
+    this.r = 20;
+
   }
 
   drawSpheres(){
@@ -32,20 +37,52 @@ class Alien {
   imageMode(CENTER);
     // Draw each of the aliens,
     // you should use a loop here. DONE
-    for(var i = 0; i < 5; i++) {
-      image(alien, aliens[i].x, aliens[i].y, 20, 20);
-    }
+
+      image(alien, this.x, this.y, this.r, this.r);
+
   }
 
   moveSpheres(){
     // Move Spheres down the screen,
     // i.e. change sphereCoordsY DONE
-    for(i = 0; i < 5; i++) {
-      aliens[i].y += ySpeed * 1.5;
-    }
+
+      this.y += ySpeed * 1.5;
+
 
   }
 
+}
+
+class Bullet {
+  constructor(xPosition, yPosition){
+    this.x = xPosition;
+    this.y = yPosition;
+  }
+
+
+
+  moveLaser(){
+
+
+      noStroke();
+    	fill(255, 0, 0);
+
+      ellipse(this.x, this.y, 5, 5);
+
+
+
+    for(var i = 0; i < lasers.length; i++){
+      lasers[i] += laserSpeed;
+      if(lasers[i] < 0){
+        this.x.splice(i, 1);
+        this.y.splice(i, 1);
+
+        i--;
+        score--;
+      }
+
+  }
+  }
 }
 
 
@@ -66,8 +103,9 @@ function setup() {
   createCanvas(1200, 800);
 imageMode(CENTER);
   for(let i = 0; i < 5; i++){
-    aliens[i] = new // add x and y and r values to aliens
+    aliens[i] = new Sphere();  // add x and y and r values to aliens
   }
+
 
 
 
@@ -92,16 +130,20 @@ function draw() {
     image(backdrop, 600, 400, 1200, 800);
 
   noStroke();
-
-    aliens.drawSpheres();
-    aliens.moveSpheres();
-
-    moveLaser();
+    for(i = 0; i < 5; i++){
+    aliens[i].drawSpheres();
+    aliens[i].moveSpheres();
+  }
+  for(i = 0; i < lasers.length; i++){
+    lasers[i].moveLaser();
+  }
   drawShip();
     checkShoot();
 
    if (shoot){
-     makeBullet();
+     for(i = 0; i < lasers.length; i++){
+     lasers[i].makeBullet();
+   }
 //      checkShoot();
 
   }
@@ -170,33 +212,33 @@ function drawShip(){
 
 }
 
-function moveLaser(){
-
-for(var i = 0; i < laserBeamY.length; i++){
-    noStroke();
-  	fill(255, 0, 0);
-
-    ellipse(laserBeamX[i], laserBeamY[i], 5, 5);
-
-  }
-
-  for(var i = 0; i < laserBeamY.length; i++){
-    laserBeamY[i] += laserSpeed;
-    if(laserBeamY[i] < 0){
-      laserBeamX.splice(i, 1);
-      laserBeamY.splice(i, 1);
-
-      i--;
-      score--;
-    }
-
-}
-}
+// function moveLaser(){
+//
+// for(var i = 0; i < laserBeamY.length; i++){
+//     noStroke();
+//   	fill(255, 0, 0);
+//
+//     ellipse(laserBeamX[i], laserBeamY[i], 5, 5);
+//
+//   }
+//
+//   for(var i = 0; i < laserBeamY.length; i++){
+//     laserBeamY[i] += laserSpeed;
+//     if(laserBeamY[i] < 0){
+//       laserBeamX.splice(i, 1);
+//       laserBeamY.splice(i, 1);
+//
+//       i--;
+//       score--;
+//     }
+//
+// }
+// }
 
 
 function checkShoot(){
 
-  for(var i = 0; i < laserBeamY.length; i++){
+  for(var i = 0; i < lasers.length; i++){
     for(var j = 0; j < 5; j++){
     if(laserBeamX[i] >= aliens[j].x - 20 &&
        laserBeamX[i] <= aliens[j].x + 20 &&
@@ -207,8 +249,8 @@ function checkShoot(){
 
     aliens[j].x = random(20, width-20);
     aliens[j].y = 0;
-      laserBeamX.splice(i, 1);
-      laserBeamY.splice(i, 1);
+      lasers[i].splice(i, 1);
+      lasers[i].splice(i, 1);
 
       i--;
 
@@ -227,15 +269,15 @@ function checkShoot(){
 
 }
 
-function makeBullet(){
- strokeWeight(3);
-  stroke(255,0,0);
-  fill(255,0,0);
-   laserBeamX.push(xPos);
-  laserBeamY.push(yPos);
-  shoot = false;
-  strokeWeight(3);
-}
+// function makeBullet(){
+//  strokeWeight(3);
+//   stroke(255,0,0);
+//   fill(255,0,0);
+//    laserBeamX.push(xPos);
+//   laserBeamY.push(yPos);
+//   shoot = false;
+//   strokeWeight(3);
+// }
 
 function mousePressed(){
   if(mouseX >= width/2 - 100 && mouseX <= width/2 + 20 &&
@@ -266,6 +308,7 @@ function endCheck(){
 function keyTyped() {
   if (key === 'w') {
     shoot = true;
+    lasers.push()= new Bullet(xPos, yPos);
     blaster.play();
   }
 
