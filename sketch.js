@@ -33,7 +33,7 @@ class Alien {
     // Draw each of the aliens,
     // you should use a loop here. DONE
     for(var i = 0; i < 5; i++) {
-      image(alien, aliens.x[i], aliens.y[i], 20, 20);
+      image(alien, aliens[i].x, aliens[i].y, 20, 20);
     }
   }
 
@@ -41,7 +41,7 @@ class Alien {
     // Move Spheres down the screen,
     // i.e. change sphereCoordsY DONE
     for(i = 0; i < 5; i++) {
-      aliens.y[i] += ySpeed * 1.5;
+      aliens[i].y += ySpeed * 1.5;
     }
 
   }
@@ -65,13 +65,18 @@ function setup() {
   // Create an area that is not the full screen DONE
   createCanvas(1200, 800);
 imageMode(CENTER);
+  for(let i = 0; i < 5; i++){
+    aliens[i] = new // add x and y and r values to aliens
+  }
+
+
 
   // set the x position of each alien randomly
   // for( var i = 0; i < 5; i++){
   //   sphereCoordsX[i] = random(20, width-20);
     // The variable width is the width of the Canvas
     // We would use height for the height of the Canvas
-  }
+  //}
 
   textSize(40);
   // Setting this for the size the score will be displayed at
@@ -87,8 +92,10 @@ function draw() {
     image(backdrop, 600, 400, 1200, 800);
 
   noStroke();
-  drawSpheres();
-  moveSpheres();
+
+    aliens.drawSpheres();
+    aliens.moveSpheres();
+
     moveLaser();
   drawShip();
     checkShoot();
@@ -191,15 +198,15 @@ function checkShoot(){
 
   for(var i = 0; i < laserBeamY.length; i++){
     for(var j = 0; j < 5; j++){
-    if(laserBeamX[i] >= aliens.x[j] - 20 &&
-       laserBeamX[i] <= aliens.x[j] + 20 &&
-       laserBeamY[i] <= aliens.y[j] + 20 &&
-       laserBeamY[i] >= aliens.y[j] - 20){
+    if(laserBeamX[i] >= aliens[j].x - 20 &&
+       laserBeamX[i] <= aliens[j].x + 20 &&
+       laserBeamY[i] <= aliens[j].y + 20 &&
+       laserBeamY[i] >= aliens[j].y - 20){
          screech.play();
      score += 2;
 
-    aliens.x[j] = random(20, width-20);
-    aliens.y[j] = 0;
+    aliens[j].x = random(20, width-20);
+    aliens[j].y = 0;
       laserBeamX.splice(i, 1);
       laserBeamY.splice(i, 1);
 
@@ -237,7 +244,7 @@ function mousePressed(){
     end = false;
     score = 0;
     for(var i = 0; i < 5; i++){
-    aliens.y[i] = 0;
+    aliens[i].y = 0;
     }
     }
   // shoot = true;
@@ -250,7 +257,7 @@ function endCheck(){
   // Check to see if any of the Aliens made it past the ship
   // You'll probably need some sort of loop here DONE
   for(var i = 0; i < 5; i++){
-  if(aliens.y[i] >= height){
+  if(aliens[i].y >= height){
       end = true;
     }
   }
