@@ -145,7 +145,7 @@ function draw() {
 checkShoot();
 
 
-   if (shoot){
+   //if (shoot){
      for(i = 0; i < lasers.length; i++){
      lasers[i].makeLaser();
    }
@@ -159,7 +159,7 @@ checkShoot();
 //   i--;
 //   score--;
 // }
-  }
+//  }
 
   for(i = 0; i < lasers.length; i++){
     lasers[i].moveLaser();
@@ -241,22 +241,22 @@ function drawShip(){
 //
 //   }
 //
-//   for(var i = 0; i < laserBeamY.length; i++){
-//     laserBeamY[i] += laserSpeed;
-//     if(laserBeamY[i] < 0){
-//       laserBeamX.splice(i, 1);
-//       laserBeamY.splice(i, 1);
-//
-//       i--;
-//       score--;
-//     }
+  // for(var i = 0; i < laserBeamY.length; i++){
+  //   laserBeamY[i] += laserSpeed;
+  //   if(laserBeamY[i] < 0){
+  //     laserBeamX.splice(i, 1);
+  //     laserBeamY.splice(i, 1);
+  //
+  //     i--;
+  //     score--;
+  //   }
 //
 // }
 // }
 
 
 function checkShoot(){
-
+  console.log(lasers);
   for(var i = 0; i < lasers.length; i++){
     for(var j = 0; j < 5; j++){
     if(lasers[i].x >= aliens[j].x - 20 &&
@@ -269,11 +269,20 @@ function checkShoot(){
     aliens[j].x = random(20, width-20);
     aliens[j].y = 0;
       lasers.splice(i, 1);
-      lasers.splice(i, 1);
+    
 
       i--;
 
     }
+    }
+  }
+  for(var i = 0; i < lasers.length; i++){
+    lasers[i].y += laserSpeed;
+    if(lasers[i].y < 0){
+      lasers.splice(i, 1);
+
+      i--;
+      score--;
     }
   }
 
@@ -329,7 +338,7 @@ function keyTyped() {
     shoot = true;
 
       lasers.push(new Bullet(xPos, yPos));
-
+      print(lasers.length);
       for(i = 0; i < lasers.length; i++){
         lasers[i].makeLaser();
       }
