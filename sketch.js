@@ -58,6 +58,7 @@ class Bullet {
   constructor(xPosition, yPosition){
     this.x = xPosition;
     this.y = yPosition;
+    this.r = 5;
   }
 
 
@@ -68,7 +69,7 @@ class Bullet {
       noStroke();
     	fill(255, 0, 0);
 
-      ellipse(this.x, this.y, 5, 5);
+      ellipse(this.x, this.y, this.r, this.r);
 
 
 
@@ -113,6 +114,7 @@ imageMode(CENTER);
 
 
 
+
   // set the x position of each alien randomly
   // for( var i = 0; i < 5; i++){
   //   sphereCoordsX[i] = random(20, width-20);
@@ -145,25 +147,25 @@ function draw() {
 checkShoot();
 
 
-   //if (shoot){
-     for(i = 0; i < lasers.length; i++){
-     lasers[i].makeLaser();
-   }
-
-//      checkShoot();
-// for(i = 0; i < lasers.length; i++){
-// if(lasers[i] < 0){
-//   lasers[i].x.splice(i, 1);
-//   lasers[y].y.splice(i, 1);
+//    if (shoot){
+//      for(i = 0; i < lasers.length; i++){
+//      lasers[i].makeLaser();
+//    }
 //
-//   i--;
-//   score--;
-// }
+// //      checkShoot();
+// // for(i = 0; i < lasers.length; i++){
+// // if(lasers[i] < 0){
+// //   lasers[i].x.splice(i, 1);
+// //   lasers[y].y.splice(i, 1);
+// //
+// //   i--;
+// //   score--;
+// // }
 //  }
 
-  for(i = 0; i < lasers.length; i++){
-    lasers[i].moveLaser();
-  }
+  // for(i = 0; i < lasers.length; i++){
+  //   lasers[i].moveLaser();
+  // }
 
   endCheck();
   if (end){
@@ -257,6 +259,13 @@ function drawShip(){
 
 function checkShoot(){
   console.log(lasers);
+
+  for(i = 0; i < lasers.length; i++){
+  lasers[i].makeLaser();
+}
+for(i = 0; i < lasers.length; i++){
+  lasers[i].moveLaser();
+}
   for(var i = 0; i < lasers.length; i++){
     for(var j = 0; j < 5; j++){
     if(lasers[i].x >= aliens[j].x - 20 &&
@@ -269,7 +278,7 @@ function checkShoot(){
     aliens[j].x = random(20, width-20);
     aliens[j].y = 0;
       lasers.splice(i, 1);
-    
+
 
       i--;
 
