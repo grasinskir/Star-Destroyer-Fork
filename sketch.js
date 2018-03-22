@@ -271,6 +271,7 @@ for(i = 0; i < lasers.length; i++){
        lasers[i].x <= aliens[j].x + 20 &&
        lasers[i].y <= aliens[j].y + 20 &&
        lasers[i].y >= aliens[j].y - 20){
+
          screech.play();
      score += 2;
 
