@@ -259,15 +259,14 @@ function drawShip(){
 
 function checkShoot(){
   console.log(lasers);
-
   for(i = 0; i < lasers.length; i++){
-  lasers[i].makeLaser();
-}
+    lasers[i].makeLaser();
+  }
 for(i = 0; i < lasers.length; i++){
   lasers[i].moveLaser();
 }
   for(var i = 0; i < lasers.length; i++){
-    for(var j = 0; j < 5; j++){
+    for(var j = 0; j < aliens.length; j++){
     if(lasers[i].x >= aliens[j].x - 20 &&
        lasers[i].x <= aliens[j].x + 20 &&
        lasers[i].y <= aliens[j].y + 20 &&
@@ -278,6 +277,7 @@ for(i = 0; i < lasers.length; i++){
     aliens[j].x = random(20, width-20);
     aliens[j].y = 0;
       lasers.splice(i, 1);
+      //console.log(lasers[i].x);
 
 
       i--;
