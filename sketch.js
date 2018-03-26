@@ -55,9 +55,9 @@ class Sphere {
 }
 
 class Bullet {
-  constructor(xPosition, yPosition){
-    this.x = xPosition;
-    this.y = yPosition;
+  constructor(){
+    this.x = xPos;
+    this.y = yPos;
   }
 
 
@@ -256,20 +256,27 @@ function drawShip(){
 
 
 function checkShoot(){
-  console.log(lasers);
-  for(var i = 0; i < lasers.length; i++){
-    for(var j = 0; j < 5; j++){
-    if(lasers[i].x >= aliens[j].x - 20 &&
-       lasers[i].x <= aliens[j].x + 20 &&
-       lasers[i].y <= aliens[j].y + 20 &&
-       lasers[i].y >= aliens[j].y - 20){
+  for(var j = 0; j < 5; j++){
+    for(var i = 0; i < lasers.length; i++){
+    if(aliens[j].x - 20 <= lasers[i].x  &&
+       aliens[j].x + 20 >= lasers[i].x  &&
+       aliens[j].y + 20 >= lasers[i].y  &&
+       lasers[i].y - 20 <= lasers[i].y){
+
+  // for(var i = 0; i < lasers.length; i++){
+  //   for(var j = 0; j < 5; j++){
+  //   if(lasers[i].x >= aliens[j].x - 20 &&
+  //      lasers[i].x <= aliens[j].x + 20 &&
+  //      lasers[i].y <= aliens[j].y + 20 &&
+  //      lasers[i].y >= aliens[j].y - 20){
          screech.play();
+         console.log(lasers[i].x);
      score += 2;
 
     aliens[j].x = random(20, width-20);
     aliens[j].y = 0;
       lasers.splice(i, 1);
-    
+
 
       i--;
 
@@ -337,8 +344,7 @@ function keyTyped() {
   if (key === 'w') {
     shoot = true;
 
-      lasers.push(new Bullet(xPos, yPos));
-      print(lasers.length);
+      lasers.push(new Bullet);
       for(i = 0; i < lasers.length; i++){
         lasers[i].makeLaser();
       }
