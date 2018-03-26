@@ -55,16 +55,10 @@ class Sphere {
 }
 
 class Bullet {
-<<<<<<< HEAD
   constructor(){
     this.x = xPos;
     this.y = yPos;
-=======
-  constructor(xPosition, yPosition){
-    this.x = xPosition;
-    this.y = yPosition;
     this.r = 5;
->>>>>>> e2abc1392a998b9ac2d198748dbbfce94cd68344
   }
 
 
@@ -147,7 +141,9 @@ function draw() {
     aliens[i].moveSpheres();
   }
   for(i = 0; i < lasers.length; i++){
+    lasers[i].makeLaser();
     lasers[i].moveLaser();
+
   }
   drawShip();
 checkShoot();
@@ -264,7 +260,6 @@ function drawShip(){
 
 
 function checkShoot(){
-<<<<<<< HEAD
   for(var j = 0; j < 5; j++){
     for(var i = 0; i < lasers.length; i++){
     if(aliens[j].x - 20 <= lasers[i].x  &&
@@ -278,22 +273,6 @@ function checkShoot(){
   //      lasers[i].x <= aliens[j].x + 20 &&
   //      lasers[i].y <= aliens[j].y + 20 &&
   //      lasers[i].y >= aliens[j].y - 20){
-=======
-  console.log(lasers);
-  for(i = 0; i < lasers.length; i++){
-    lasers[i].makeLaser();
-  }
-for(i = 0; i < lasers.length; i++){
-  lasers[i].moveLaser();
-}
-  for(var i = 0; i < lasers.length; i++){
-    for(var j = 0; j < aliens.length; j++){
-    if(lasers[i].x >= aliens[j].x - 20 &&
-       lasers[i].x <= aliens[j].x + 20 &&
-       lasers[i].y <= aliens[j].y + 20 &&
-       lasers[i].y >= aliens[j].y - 20){
-
->>>>>>> e2abc1392a998b9ac2d198748dbbfce94cd68344
          screech.play();
          console.log(lasers[i].x);
      score += 2;
@@ -301,10 +280,6 @@ for(i = 0; i < lasers.length; i++){
     aliens[j].x = random(20, width-20);
     aliens[j].y = 0;
       lasers.splice(i, 1);
-<<<<<<< HEAD
-=======
-      //console.log(lasers[i].x);
->>>>>>> e2abc1392a998b9ac2d198748dbbfce94cd68344
 
 
       i--;
